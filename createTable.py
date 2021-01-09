@@ -24,7 +24,8 @@ class createTable:
             如：c_xingming 表示 姓名这一列
             在前面加上英文字母可以方便的避免列名的重复
             '''
-            return [str(Columnlabel(len(list[0]))[k] + "_" + p.get_pinyin(list[0][k], "")) for k in range(len(list[0]))]
+            return [str(Columnlabel(len(list[0]))[k] + "_" + p.get_pinyin(list[0][k], "").replace("-","_").replace(" ","_")) for k in range(len(list[
+                                                                                                                                                 0]))]
 
         def colmaxlen(list):
             '''
