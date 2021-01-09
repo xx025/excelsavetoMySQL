@@ -2,6 +2,7 @@
 import os
 
 from createTable import maincreate
+from src.conneMySQL import connect_mysql
 from src.readExcel import readexcel
 from wirteTable import writetable
 
@@ -25,7 +26,17 @@ def main(database):
                 jal = input("是否创建新的表(是：Y 否：N)：")
                 if jal.lower() == "y":
                     table_name = input("输入新的表格名：")
-                    maincreate(table_name, list)
+                    maincreate(table_name, list, database)
+                    con = connect_mysql()
+                    con.con(database)
+
+                    if table_name in con.qure("show tables")[0]:
+                        print('\033[0;32m{}\033[0m'.format("创建成功"))
+                    else:
+                        return False
+                    con.close()
+
+
                 elif jal.lower() == "n":
                     table_name = input("输入要写入表格名：")
                 else:
@@ -36,6 +47,8 @@ def main(database):
                     if jal.lower() == "y":
                         writetable(list, table_name, database)
                         flag_wt = False
+
+                        print("写入结束\n\n")
                         break
                     elif jal.lower() == "n":
                         print("结束")
@@ -49,4 +62,4 @@ def main(database):
 
 
 if __name__ == '__main__':
-    main("ldu_student_information")
+    main("test_as")

@@ -24,8 +24,9 @@ class createTable:
             如：c_xingming 表示 姓名这一列
             在前面加上英文字母可以方便的避免列名的重复
             '''
-            return [str(Columnlabel(len(list[0]))[k] + "_" + p.get_pinyin(list[0][k], "").replace("-","_").replace(" ","_")) for k in range(len(list[
-                                                                                                                                                 0]))]
+            return [str(Columnlabel(len(list[0]))[k] + "_" + p.get_pinyin(list[0][k], "").replace("-", "_").replace(" ", "_")) for k in
+                    range(len(list[
+                                  0]))]
 
         def colmaxlen(list):
             '''
@@ -55,12 +56,13 @@ class createTable:
             type = "varchar({})".format(i[1]) if i[1] < 64 else "text"
             liss.append("{}\t{}".format(colname, type))
         sql = "create table\t{}\n({}\n)".format(tablename, ",\n\t".join(liss))
-        print(sql)
         return sql
 
 
-def maincreate(table_name, list):
+def maincreate(table_name, list, databese):
     sql = createTable.getSQl(table_name, list)
     con = connect_mysql()
-    con.con("ldu_student_information")
+    con.con(databese)
     con.update(sql)
+    con.close()
+
