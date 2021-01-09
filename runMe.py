@@ -9,15 +9,16 @@ from wirteTable import writetable
 def inputfipath():
     filepath = input("请输入文件路径：")
     if filepath[0] == "\"" and filepath[-1] == "\"":
-        filepath = filepath[1:-2]
+        filepath = filepath[1:-1]
         print(filepath)
     return filepath
 
 
 def main(database):
-    flag_wt = True
     while True:
+        flag_wt = True
         filepath = inputfipath()
+
         if os.path.exists(filepath):
             list = readexcel(filepath)
             while flag_wt:
